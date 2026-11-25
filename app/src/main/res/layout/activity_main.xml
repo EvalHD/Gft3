@@ -6,22 +6,6 @@
     android:orientation="vertical"
     android:padding="12dp">
 
-    <ScrollView
-        android:id="@+id/chatScroll"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-        <TextView
-            android:id="@+id/chatLog"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:lineSpacingMultiplier="1.2"
-            android:padding="8dp"
-            android:textColor="@color/ghost_text"
-            android:textSize="16sp" />
-    </ScrollView>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,7 +17,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@color/ghost_surface"
-            android:hint="Frage eingeben…"
+            android:hint="Schreib mir etwas…"
+            android:imeOptions="actionSend"
             android:inputType="text"
             android:padding="12dp"
             android:textColor="@color/ghost_text"
@@ -48,4 +33,21 @@
             android:text="Senden"
             android:textColor="@color/ghost_text" />
     </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/chatScroll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="12dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/chatLog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingMultiplier="1.2"
+            android:padding="8dp"
+            android:textColor="@color/ghost_text"
+            android:textSize="16sp" />
+    </ScrollView>
 </LinearLayout>

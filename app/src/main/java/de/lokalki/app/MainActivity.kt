@@ -16,6 +16,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var chatScroll: ScrollView
     private lateinit var input: EditText
     @Volatile private var llm: LocalLlm? = null
+    private val history = java.util.Collections.synchronizedList(mutableListOf<String>())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,13 +33,13 @@ class MainActivity : AppCompatActivity() {
             )
             append("KI", "Bitte erlaube 'Zugriff auf alle Dateien', damit ich Dateien finden kann.")
         } else {
-            append("KI", "Hallo! Frag mich z. B. 'wo ist rechnung.pdf' oder 'wie voll ist mein Speicher'.")
+            append("KI", "Hallo! Schreib mir einfach. Ich kann Dateien suchen, Speicher und Akku prüfen und deine Apps zeigen.")
         }
 
         Thread {
             llm = LocalLlm.tryLoad(this)
             runOnUiThread {
-                if (llm != null) append("KI", "Sprachmodell geladen, du kannst frei chatten.")
+                if (llm != null) append("KI", "Sprachmodell geladen, jetzt können wir uns frei unterhalten.")
             }
         }.start()
     }
@@ -50,19 +51,32 @@ class MainActivity : AppCompatActivity() {
         append("Du", text)
 
         Thread {
-            val lower = text.lowercase()
-            val answer = when {
-                lower.startsWith("wo") || lower.contains("finde") || lower.contains("suche") ->
-                    FileSearch.answer(text)
-                lower.contains("speicher") || lower.contains("akku") ->
-                    DeviceInfo.status(this)
-                lower.contains("apps") ->
-                    DeviceInfo.apps(this)
-                else -> llm?.ask(text)
-                    ?: "Kein Sprachmodell geladen. Lege 'lokalki-model.task' in den Download-Ordner, dann kann ich frei antworten. Dateisuche und Gerätestatus funktionieren schon."
+            val answer = answerTo(text)
+            synchronized(history) {
+                history.add("Du: $text")
+                history.add("KI: $answer")
+                while (history.size > 12) history.removeAt(0)
             }
             runOnUiThread { append("KI", answer) }
         }.start()
+    }
+
+    private fun answerTo(text: String): String {
+        val lower = text.lowercase()
+        return when {
+            lower.startsWith("wo ") || lower.contains("finde") ||
+                lower.contains("suche") || lower.contains("datei") -> FileSearch.answer(text)
+            lower.contains("speicher") || lower.contains("akku") -> DeviceInfo.status(this)
+            lower.contains("apps") -> DeviceInfo.apps(this)
+            else -> llm?.ask(buildPrompt(text)) ?: Smalltalk.reply(text)
+        }
+    }
+
+    private fun buildPrompt(text: String): String {
+        val context = synchronized(history) { history.joinToString("\n") }
+        return "Du bist LokalKI, ein freundlicher Assistent auf dem Handy. " +
+            "Antworte auf Deutsch, kurz und hilfreich.\n" +
+            "$context\nDu: $text\nKI:"
     }
 
     private fun append(who: String, msg: String) {
