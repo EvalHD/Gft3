@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Geist-Silhouette -->
+    <path
+        android:fillColor="#E5E7EB"
+        android:pathData="M54,28 C40,28 31,39 31,54 L31,80 L38,74 L45,80 L54,74 L63,80 L70,74 L77,80 L77,54 C77,39 68,28 54,28 Z" />
+    <!-- Augen -->
+    <path
+        android:fillColor="#7C5CFF"
+        android:pathData="M46,52m-4.5,0a4.5,4.5 0,1 1,9 0a4.5,4.5 0,1 1,-9 0" />
+    <path
+        android:fillColor="#7C5CFF"
+        android:pathData="M62,52m-4.5,0a4.5,4.5 0,1 1,9 0a4.5,4.5 0,1 1,-9 0" />
+    <!-- Türkiser Glanz -->
+    <path
+        android:fillColor="#2DD4BF"
+        android:pathData="M40,40 C44,36 48,35 52,35 L50,37 C46,37 43,38 40,40 Z" />
+</vector>

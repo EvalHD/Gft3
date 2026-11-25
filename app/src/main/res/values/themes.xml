@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.LokalKI" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/ghost_violet</item>
+        <item name="colorPrimaryDark">@color/ghost_bg</item>
+        <item name="colorAccent">@color/ghost_teal</item>
+        <item name="android:windowBackground">@color/ghost_bg</item>
+        <item name="android:statusBarColor">@color/ghost_bg</item>
+        <item name="android:navigationBarColor">@color/ghost_bg</item>
+    </style>
+</resources>

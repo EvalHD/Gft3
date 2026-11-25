@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ghost_bg">#0B0F1A</color>
+    <color name="ghost_surface">#161B2E</color>
+    <color name="ghost_violet">#7C5CFF</color>
+    <color name="ghost_teal">#2DD4BF</color>
+    <color name="ghost_text">#E5E7EB</color>
+    <color name="ghost_muted">#94A3B8</color>
+</resources>
